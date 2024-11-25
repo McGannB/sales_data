@@ -65,3 +65,30 @@ def load_data_to_db(data, db_name, table_name):
 db_name = 'sales_data.db'
 table_name = 'sales'
 load_data_to_db(transformed_data, db_name, table_name)
+
+
+#Analyze Data Using SQL
+
+
+#Query data from SQLite database
+def query_data_from_db(db_name, query):
+    try:
+        conn = sqlite3.connect(db_name)
+        results = pd.read_sql_query(query, conn)
+        conn.close()
+        return results
+    except Exception as e:
+        print(f"Error querying data: {e}")
+        return None
+    
+#Example queries
+query = """
+SELECT strftime('%Y-%m', Date) AS Month, SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY Month
+ORDER BY Total_Sales DESC;
+"""
+result = query_data_from_db(db_name, query)
+print(result)
+
+
