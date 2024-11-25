@@ -1,6 +1,9 @@
 import pandas as pd
+import sqlite3
+
 
 #Extract Data
+
 
 #Load CSV data
 def extract_data(file_path):
@@ -17,7 +20,9 @@ file_path = 'sales_data.csv' #Replace with the path to your CSV
 data = extract_data(file_path)
 print(data.head())
 
+
 #Transform Data
+
 
 #Clean and process the data
 def transform_data(data):
@@ -43,3 +48,20 @@ transformed_data = transform_data(data)
 print(transformed_data.head())
 
 
+#Load Data into a SQL Database
+
+
+#Load data into SQLite database
+def load_data_to_db(data, db_name, table_name):
+    try:
+        conn = sqlite3.connect(db_name)
+        data.to_sql(table_name, conn, if_exists='replace', index=False)
+        conn.close()
+        print(f"Data loaded into {table_name} table in {db_name} database.")
+    except Exception as e:
+        print(f"Error loading data to database: {e}")
+
+#Load the transformed data
+db_name = 'sales_data.db'
+table_name = 'sales'
+load_data_to_db(transformed_data, db_name, table_name)
