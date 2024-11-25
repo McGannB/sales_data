@@ -39,6 +39,6 @@ def generate_random_csv(file_name, num_rows):
     print(f"Random CSV file '{file_name}' with {num_rows} rows generated successfully.")
 
 #Example usage
-file_name = "random_sales_data.csv"
+file_name = "sales_data.csv"
 num_rows = 500 #Number of rows to generate
 generate_random_csv(file_name, num_rows)
